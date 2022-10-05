@@ -3,6 +3,8 @@ import ContactForm from './ContactForm/ContactForm';
 import { nanoid } from 'nanoid';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
+import { Box } from './Box.styled';
+import { Section } from './Section/Section';
 
 export class App extends Component {
   state = {
@@ -33,7 +35,7 @@ export class App extends Component {
   };
 
   deleteContact = id => {
-    console.log(this.state.contacts);
+    // console.log(this.state.contacts);
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
@@ -47,19 +49,18 @@ export class App extends Component {
     );
 
     return (
-      <div>
-        <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.onFormSubmit} />
-
-        <section>
-          <h2>Contacts</h2>
+      <Box>
+        <Section title="Phonebook">
+          <ContactForm onSubmit={this.onFormSubmit} />
+        </Section>
+        <Section title="Contacts">
           <Filter value={filter} onChange={this.changeFilter} />
           <ContactList
             contacts={filteredContacts}
             onDeleteContact={this.deleteContact}
           />
-        </section>
-      </div>
+        </Section>
+      </Box>
     );
   }
 }
